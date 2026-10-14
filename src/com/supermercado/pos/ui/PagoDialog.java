@@ -1,0 +1,4 @@
+package com.supermercado.pos.ui;
+
+import javax.swing.*;import java.util.*;import com.supermercado.pos.servicio.*;
+public class PagoDialog extends JDialog {public PagoDialog(JFrame padre,java.util.List<Operaciones.Linea> lineas,Runnable ok){super(padre,"Pago",true);JPanel p=UI.panel();JTextField efectivo=UI.campo(p,"Efectivo aplicado");JTextField tarjeta=UI.campo(p,"Tarjeta");JTextField recibido=UI.campo(p,"Efectivo recibido");efectivo.setText("0");tarjeta.setText("0");recibido.setText("0");JButton cobrar=new JButton("Confirmar cobro");p.add(cobrar);cobrar.addActionListener(e->UI.accion(this,()->{long id=Operaciones.cobrar(lineas,Operaciones.dinero(efectivo.getText()),Operaciones.dinero(tarjeta.getText()),Operaciones.dinero(recibido.getText()));UI.mensaje(this,"Venta #"+id+" registrada");ok.run();dispose();}));add(p);pack();setLocationRelativeTo(padre);}}
